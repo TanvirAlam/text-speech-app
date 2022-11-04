@@ -45,6 +45,10 @@ const Home: NextPage = () => {
                       </div>
                   </div>
               </div>
+              <div className="py-2 px-4 bg-white rounded-b-lg dark:bg-gray-800">
+                  <h4 className="uppercase leading-normal text-gray-700 md:text-1 font-bold">Converted ssmlText:</h4>
+                  <div>Data</div>
+              </div>
           </div>
         </form>
       </main>
