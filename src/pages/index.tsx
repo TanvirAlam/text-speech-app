@@ -1,10 +1,15 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import { useSpeechSynthesis } from "react-speech-kit";
+
 import { HiSpeakerphone } from 'react-icons/hi';
 import { FaPlayCircle } from 'react-icons/fa';
 import { SiConvertio } from 'react-icons/si';
+import { useState } from "react";
 
 const Home: NextPage = () => {
+  const [Text, setText] = useState("")
+  const { speak } = useSpeechSynthesis()
 
   return (
     <>
@@ -21,12 +26,22 @@ const Home: NextPage = () => {
         <form>
           <div className="mb-4 w-full bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600">
               <div className="py-2 px-4 bg-white rounded-b-lg dark:bg-gray-800">
-                  <textarea id="editor" className="block px-4 w-full text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write to convert to speach..." required></textarea>
+                  <textarea 
+                    id="editor" 
+                    value={Text}
+                    onChange={(e) => setText(e.target.value)}
+                    className="block px-4 w-full text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" 
+                    placeholder="Write to convert to speach..." 
+                    required></textarea>
               </div>
               <div className="flex justify-between items-center py-2 px-3 border-b dark:border-gray-600">
                   <div className="flex flex-wrap items-center divide-gray-200 sm:divide-x dark:divide-gray-600">
                       <div className="flex items-center space-x-1">
-                          <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                          <button 
+                            type="button" 
+                            onClick={(e) => speak({text: Text})}
+                            className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
+                          >
                               <FaPlayCircle />
                               <span className="sr-only">Attach file</span>
                           </button>
