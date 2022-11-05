@@ -1,8 +1,8 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { HiSpeakerphone } from 'react-icons/hi';
+import { FaPlayCircle } from 'react-icons/fa';
 import { SiConvertio } from 'react-icons/si';
-import { FaTeamspeak } from 'react-icons/fa';
 
 const Home: NextPage = () => {
 
@@ -27,7 +27,7 @@ const Home: NextPage = () => {
                   <div className="flex flex-wrap items-center divide-gray-200 sm:divide-x dark:divide-gray-600">
                       <div className="flex items-center space-x-1">
                           <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
-                              <HiSpeakerphone />
+                              <FaPlayCircle />
                               <span className="sr-only">Attach file</span>
                           </button>
                       </div>
@@ -38,15 +38,15 @@ const Home: NextPage = () => {
                           </button>
                       </div>
                       <div className="flex items-center space-x-1">
-                          <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
-                              <FaTeamspeak />
-                              <span className="sr-only">Convert</span>
+                          <button type="button" className="flex items-center gap-2 p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                              <HiSpeakerphone />
+                              <span className="text-xs">Start Speaking</span>
                           </button>
                       </div>
                   </div>
               </div>
               <div className="py-2 px-4 bg-white rounded-b-lg dark:bg-gray-800">
-                  <h4 className="uppercase leading-normal text-gray-700 md:text-1 font-bold">Converted ssmlText:</h4>
+                  <h4 className="text-gray-700 font-bold">Converted ssmlText:</h4>
                   <div>Data</div>
               </div>
           </div>
