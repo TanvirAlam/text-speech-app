@@ -7,8 +7,11 @@ import { FaPlayCircle } from 'react-icons/fa';
 import { SiConvertio } from 'react-icons/si';
 import { useState } from "react";
 
+const Genders = ["Select Gender", "Male", "Female"]
+
 const Home: NextPage = () => {
   const [Text, setText] = useState("")
+  const [gender, setGender] = useState<string | undefined>(Genders[0])
   const { speak } = useSpeechSynthesis()
 
   return (
@@ -57,6 +60,18 @@ const Home: NextPage = () => {
                               <HiSpeakerphone />
                               <span className="text-xs">Start Speaking</span>
                           </button>
+                      </div>
+                      <div>
+                        <select 
+                          value={gender}
+                          onChange={(e) => setGender(e.target.value)} 
+                          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            {
+                              Genders.map((gender, key) => {
+                                return (<option key={key} value={gender}>{gender}</option>)
+                              })
+                            }
+                        </select>
                       </div>
                   </div>
               </div>

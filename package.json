@@ -22,6 +22,8 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.6.0",
     "react-speech-kit": "^3.0.1",
+    "react-ssml-dom": "^2.0.0",
+    "ssml": "^0.0.4",
     "superjson": "1.9.1",
     "zod": "^3.18.0"
   },
