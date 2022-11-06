@@ -1,18 +1,38 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useSpeechSynthesis } from "react-speech-kit";
+import ssml from 'ssml';
 
 import { HiSpeakerphone } from 'react-icons/hi';
 import { FaPlayCircle } from 'react-icons/fa';
 import { SiConvertio } from 'react-icons/si';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Genders = ["Select Gender", "Male", "Female"]
 
 const Home: NextPage = () => {
+  const { speak, voices } = useSpeechSynthesis()
   const [Text, setText] = useState("")
+  const [convertedText, setConvertedText] = useState("")
+  const [genderVoice, setGenderVoice] = useState(voices[1])
   const [gender, setGender] = useState<string | undefined>(Genders[0])
-  const { speak } = useSpeechSynthesis()
+  const ssmlDoc = new ssml();
+
+  const ConvertTextToSSML = () => {
+    const ssmlConvertedText = ssmlDoc.say(Text)
+      .break(500)
+      .prosody({ rate: '0.8' })
+      .toString({ pretty: true })
+
+    setConvertedText(ssmlConvertedText)
+    console.log(voices)
+  }
+
+  useEffect(() => {
+    if(gender === "Male") {
+      setGenderVoice(voices[3])
+    }
+  },[gender])
 
   return (
     <>
@@ -42,7 +62,7 @@ const Home: NextPage = () => {
                       <div className="flex items-center space-x-1">
                           <button 
                             type="button" 
-                            onClick={(e) => speak({text: Text})}
+                            onClick={(e) => speak({text: Text, voice: genderVoice})}
                             className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600"
                           >
                               <FaPlayCircle />
@@ -50,7 +70,10 @@ const Home: NextPage = () => {
                           </button>
                       </div>
                       <div className="flex items-center space-x-1">
-                          <button type="button" className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
+                          <button 
+                            type="button" 
+                            onClick={ConvertTextToSSML}
+                            className="p-2 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-600">
                               <SiConvertio />
                               <span className="sr-only">Convert</span>
                           </button>
@@ -77,7 +100,7 @@ const Home: NextPage = () => {
               </div>
               <div className="py-2 px-4 bg-white rounded-b-lg dark:bg-gray-800">
                   <h4 className="text-gray-700 font-bold">Converted ssmlText:</h4>
-                  <div>Data</div>
+                  <div>{convertedText && convertedText}</div>
               </div>
           </div>
         </form>
